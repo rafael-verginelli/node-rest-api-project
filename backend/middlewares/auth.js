@@ -6,7 +6,9 @@ module.exports = (req, res, next) => {
     const authHeader = req.get('Authorization');
     if(!authHeader) {
         req.isAuth = false;
-        return next();
+        const error = new Error('Not authenticated.');
+        error.statusCode = 401;
+        throw error;
     }
 
     if(!authHeader.startsWith('Bearer ')) {
@@ -24,7 +26,8 @@ module.exports = (req, res, next) => {
         decodedToken = jwt.verify(token, tokenUtil.getTokenSeed);
     } catch(err) {
         req.isAuth = false;
-        return next();
+        err.statusCode = 500;
+        throw err;
     }
 
     if(!decodedToken) {

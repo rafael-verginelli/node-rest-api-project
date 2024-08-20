@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --timeout 5000",
     "start": "nodemon app.js",
     "start-server": "node app.js"
   },
@@ -11,7 +11,10 @@
   "license": "ISC",
   "description": "A simple Rest API project for learning purposes.",
   "devDependencies": {
-    "nodemon": "^3.1.4"
+    "chai": "^5.1.1",
+    "mocha": "^10.7.3",
+    "nodemon": "^3.1.4",
+    "sinon": "^18.0.0"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

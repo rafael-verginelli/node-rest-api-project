@@ -63,7 +63,7 @@ exports.createPost = async (req, res, next) => {
 
     creator = user;
     user.posts.push(post);
-    await user.save();
+    const savedUser = await user.save();
 
     res.status(201).json({
       message: "Post created successfully",
@@ -73,11 +73,13 @@ exports.createPost = async (req, res, next) => {
         name: creator.name,
       },
     });
+    return savedUser;
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
     }
     next(err);
+    return err;
   }
 };
 
